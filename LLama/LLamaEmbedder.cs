@@ -105,7 +105,7 @@ namespace LLama
                     embeddings = NativeApi.llama_get_embeddings_seq(Context.NativeHandle, LLamaSeqId.Zero);
 
                 if (embeddings == null)
-                    return [ ];
+                    return new float[] { };
 
                 return new Span<float>(embeddings, Context.EmbeddingSize).ToArray();
             }

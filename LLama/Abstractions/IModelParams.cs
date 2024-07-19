@@ -213,7 +213,7 @@ namespace LLama.Abstractions
         /// <inheritdoc/>
         public override TensorSplitsCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var arr = JsonSerializer.Deserialize<float[]>(ref reader, options) ?? [ ];
+            var arr = JsonSerializer.Deserialize<float[]>(ref reader, options) ?? Array.Empty<float>();
             return new TensorSplitsCollection(arr);
         }
 

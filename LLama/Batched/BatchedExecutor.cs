@@ -16,7 +16,7 @@ public sealed class BatchedExecutor
     : IDisposable
 {
     private int _nextSequenceId;
-    private readonly List<IBatch> _batchQueue = [ ];
+    private readonly List<IBatch> _batchQueue = new List<IBatch>();
     
     /// <summary>
     /// Set to 1 using interlocked exchange while inference is running
@@ -262,22 +262,34 @@ public sealed class BatchedExecutor
         Task<DecodeResult> DecodeAsync(LLamaContext ctx, CancellationToken token);
     }
     
-    private class TokenBatch(LLamaBatch batch)
+    private class TokenBatch
         : IBatch
     {
-        public readonly LLamaBatch Batch = batch;
-        public int ItemCount => Batch.TokenCount;
+        public readonly LLamaBatch Batch;
+        
+        public TokenBatch(LLamaBatch batch)
+        {
+            Batch = batch;
+        }
 
+        public int ItemCount => Batch.TokenCount;
+        
+        
         public Task<DecodeResult> DecodeAsync(LLamaContext ctx, CancellationToken token)
         {
             return ctx.DecodeAsync(Batch, token);
         }
     }
     
-    private class EmbeddingBatch(LLamaBatchEmbeddings batch)
+    private class EmbeddingBatch
         : IBatch
     {
-        public readonly LLamaBatchEmbeddings Batch = batch;
+        public readonly LLamaBatchEmbeddings Batch;
+        
+        public EmbeddingBatch(LLamaBatchEmbeddings batch)
+        {
+            Batch = batch;
+        }
         public int ItemCount => Batch.EmbeddingsCount;
 
         public Task<DecodeResult> DecodeAsync(LLamaContext ctx, CancellationToken token)

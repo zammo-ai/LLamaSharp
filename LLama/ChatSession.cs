@@ -62,7 +62,7 @@ public class ChatSession
     /// <summary>
     /// The input transform pipeline used in this session.
     /// </summary>
-    public List<ITextTransform> InputTransformPipeline { get; set; } = [];
+    public List<ITextTransform> InputTransformPipeline { get; set; } = new List<ITextTransform>();
 
     /// <summary>
     /// The output transform used in this session.
@@ -620,11 +620,11 @@ public record SessionState
     /// Saved context state (KV cache) for the session.
     /// </summary>
     public State? ContextState { get; set; }
-
+    
     /// <summary>
     /// The input transform pipeline used in this session.
     /// </summary>
-    public ITextTransform[] InputTransformPipeline { get; set; } = [ ];
+    public ITextTransform[] InputTransformPipeline { get; set; } = Array.Empty<ITextTransform>();
 
     /// <summary>
     /// The output transform used in this session.
@@ -639,7 +639,7 @@ public record SessionState
     /// <summary>
     /// The the chat history messages for this session.
     /// </summary>
-    public ChatHistory.Message[] History { get; set; } = [ ];
+    public ChatHistory.Message[] History { get; set; } = Array.Empty<ChatHistory.Message>();
 
     /// <summary>
     /// Create a new session state.
@@ -741,7 +741,7 @@ public record SessionState
             inputTransforms = File.Exists(inputTransformFilepath) ? 
                 (JsonSerializer.Deserialize<ITextTransform[]>(File.ReadAllText(inputTransformFilepath))
                 ?? throw new ArgumentException("Input transform file is invalid", nameof(path)))
-                : [ ];
+                : Array.Empty<ITextTransform>();
         }
         catch (JsonException)
         {

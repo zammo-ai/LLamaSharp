@@ -41,10 +41,10 @@ namespace LLama.Native
             if (systemInfo.OSPlatform != OSPlatform.Windows && systemInfo.OSPlatform != OSPlatform.Linux && !_skipCheck)
             {
                 // Not supported on systems other than Windows and Linux.
-                return [];
+                return new List<string>();
             }
             var path = GetAvxPath(systemInfo, _avxLevel, logCallback);
-            return path is null ? [] : [path];
+            return path is null ? new List<string>() : new List<string> {path};
         }
 
         private string? GetAvxPath(SystemInfo systemInfo, AvxLevel avxLevel, NativeLogConfig.LLamaLogCallback? logCallback)

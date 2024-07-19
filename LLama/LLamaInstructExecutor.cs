@@ -118,7 +118,7 @@ namespace LLama
         /// <inheritdoc />
         protected override Task PreprocessInputs(string? text, InferStateArgs args)
         {
-            args.Antiprompts ??= [ ];
+            args.Antiprompts ??= new List<string>();
             if (!args.Antiprompts.Contains(_instructionPrefix))
                 args.Antiprompts.Add(_instructionPrefix);
 

@@ -7,11 +7,17 @@ namespace LLama.Transformers;
 /// A prompt formatter that will use llama.cpp's template formatter
 /// If your model is not supported, you will need to define your own formatter according the cchat prompt specification for your model
 /// </summary>
-public class PromptTemplateTransformer(LLamaWeights model, 
-    bool withAssistant = true) : IHistoryTransform
+public class PromptTemplateTransformer : IHistoryTransform
 {
-    private readonly LLamaWeights _model = model;
-    private readonly bool _withAssistant = withAssistant;
+    private readonly LLamaWeights _model;
+    private readonly bool _withAssistant;
+    
+    public PromptTemplateTransformer(LLamaWeights model,
+        bool withAssistant = true)
+    {
+        _model = model;
+        _withAssistant = withAssistant;
+    }
 
     /// <inheritdoc />
     public string HistoryToText(ChatHistory history)
@@ -32,7 +38,7 @@ public class PromptTemplateTransformer(LLamaWeights model,
     /// <inheritdoc />
     public ChatHistory TextToHistory(AuthorRole role, string text)
     {
-        return new ChatHistory([new ChatHistory.Message(role, text)]);
+        return new ChatHistory(new ChatHistory.Message [] { new ChatHistory.Message(role, text) });
     }
 
     /// <inheritdoc />

@@ -25,7 +25,7 @@ namespace LLama.Native
         /// <inheritdoc/>
         public IEnumerable<string> Prepare(SystemInfo systemInfo, NativeLogConfig.LLamaLogCallback? logCallback)
         {
-            return [_path];
+            return new List<string> { _path };
         }
     }
 }

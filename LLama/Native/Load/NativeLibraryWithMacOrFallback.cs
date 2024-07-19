@@ -36,7 +36,7 @@ namespace LLama.Native
         public IEnumerable<string> Prepare(SystemInfo systemInfo, NativeLogConfig.LLamaLogCallback? logCallback)
         {
             var path = GetPath(systemInfo, AvxLevel.None, logCallback);
-            return path is null ?[] : [path];
+            return path is null ? new List<string>() : new List<string>{path};
         }
 
         private string? GetPath(SystemInfo systemInfo, AvxLevel avxLevel, NativeLogConfig.LLamaLogCallback? logCallback)

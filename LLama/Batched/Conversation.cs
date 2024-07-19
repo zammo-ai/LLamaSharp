@@ -273,7 +273,7 @@ public sealed class Conversation
     {
         AssertCanBePrompted();
         
-        Span<LLamaToken> span = [ token ];
+        Span<LLamaToken> span = new LLamaToken[] { token };
         Prompt(span);
     }
 

@@ -524,7 +524,7 @@ namespace LLama.Native
         {
             // Early exit if there's no work to do
             if (text == string.Empty && !addBos)
-                return [];
+                return new LLamaToken[] {};
 
             // Convert string to bytes, adding one extra byte to the end (null terminator)
             var bytesCount = encoding.GetByteCount(text);
@@ -580,7 +580,7 @@ namespace LLama.Native
         public Memory<byte>? MetadataValueByKey(string key)
         {
             // Check if the key exists, without getting any bytes of data
-            var keyLength = llama_model_meta_val_str(this, key, []);
+            var keyLength = llama_model_meta_val_str(this, key, new byte[] {});
             if (keyLength < 0)
                 return null;
 

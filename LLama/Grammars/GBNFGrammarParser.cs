@@ -19,7 +19,7 @@ namespace LLama.Grammars
         // copied from llama.cpp
         private static uint DecodeUTF8(ref ReadOnlySpan<byte> src)
         {
-            Span<int> lookup = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4 ];
+            Span<int> lookup = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4 };
 
             byte firstByte = src[0];
             byte highbits = (byte)(firstByte >> 4);

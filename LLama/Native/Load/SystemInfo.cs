@@ -169,10 +169,10 @@ namespace LLama.Native
             {
                 // List of default cuda paths
                 string[] defaultCudaPaths =
-                [
+                    new string [] {
                     "/usr/local/bin/cuda",
                     "/usr/local/cuda",
-                ];
+                    };
                 
                 // Loop through every default path to find the version
                 foreach (var path in defaultCudaPaths)
